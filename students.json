@@ -1,24 +1,4 @@
 {
-  "schools": [
-    {
-      "id": "SCH001",
-      "name": "École Jean Jaurès",
-      "location": "Paris",
-      "capacity": 2
-    },
-    {
-      "id": "SCH002",
-      "name": "École Louise Michel",
-      "location": "Lyon",
-      "capacity": 1
-    },
-    {
-      "id": "SCH003",
-      "name": "École Internationale de Marseille",
-      "location": "Marseille",
-      "capacity": 2
-    }
-  ],
   "students": [
     {
       "id": "STU001",
@@ -48,6 +28,5 @@
       "birthdate": "2002/07/26",
       "school_choices": ["SCH003, SCH002"]
     }
-  ]
   ]
 }

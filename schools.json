@@ -1,0 +1,22 @@
+{
+  "schools": [
+    {
+      "id": "SCH001",
+      "name": "École Jean Jaurès",
+      "location": "Paris",
+      "capacity": 1
+    },
+    {
+      "id": "SCH002",
+      "name": "École Louise Michel",
+      "location": "Lyon",
+      "capacity": 1
+    },
+    {
+      "id": "SCH003",
+      "name": "École Internationale de Marseille",
+      "location": "Marseille",
+      "capacity": 1
+    }
+  ]
+}
