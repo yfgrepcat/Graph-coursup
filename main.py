@@ -30,7 +30,7 @@ class Students:
         Initialize the students based on the json file provided.
         """
         self.studentsDict = {}
-        self.load.students("students.json")
+        self.load_students("students.json")
     
     def load_students(self, file_path):
         """
