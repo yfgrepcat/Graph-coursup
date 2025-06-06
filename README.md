@@ -11,7 +11,7 @@ A Python-powered simulation of a Parcoursup-like admission system, implementing 
 - **Command-Line Interface**: Provides a simple CLI for executing the matching process and viewing results.
 
 ## Future Enhancements
-- **Graphical Representation**: Visualizes the matching process and results using network graphs (Neo4J or similar).
+- **Graphical Representation**: Visualizes the matching process and results using graph db/visualization (Neo4J or similar).
 - **Frontend Integration**: Develops a web interface for user interaction (Django or fastAPI).
 
 ## Installation
