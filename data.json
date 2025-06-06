@@ -1,0 +1,53 @@
+{
+  "schools": [
+    {
+      "id": "SCH001",
+      "name": "École Jean Jaurès",
+      "location": "Paris",
+      "capacity": 2
+    },
+    {
+      "id": "SCH002",
+      "name": "École Louise Michel",
+      "location": "Lyon",
+      "capacity": 1
+    },
+    {
+      "id": "SCH003",
+      "name": "École Internationale de Marseille",
+      "location": "Marseille",
+      "capacity": 2
+    }
+  ],
+  "students": [
+    {
+      "id": "STU001",
+      "last_name": "Martin",
+      "first_name": "Alice",
+      "birthdate": "2008-05-12",
+      "school_choices": ["SCH001", "SCH002"]
+    },
+    {
+      "id": "STU002",
+      "last_name": "Dupont",
+      "first_name": "Lucas",
+      "birthdate": "2007-11-03",
+      "school_choices": ["SCH003", "SCH001"]
+    },
+    {
+      "id": "STU003",
+      "last_name": "Nguyen",
+      "first_name": "Emma",
+      "birthdate": "2008-09-27",
+      "school_choices": ["SCH002"]
+    },
+    {
+      "id": "STU003",
+      "last_name": "Francois",
+      "first_name": "Yoann",
+      "birthdate": "2002/07/26",
+      "school_choices": ["SCH003, SCH002"]
+    }
+  ]
+  ]
+}
