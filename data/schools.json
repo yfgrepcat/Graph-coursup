@@ -1,0 +1,25 @@
+{
+  "schools": [
+    {
+      "id": 1,
+      "name": "School of Engineering",
+      "location": "New York",
+      "capacity": 100,
+      "preferences": [1, 2, 3]
+    },
+    {
+      "id": 2,
+      "name": "School of Arts",
+      "location": "Los Angeles",
+      "capacity": 50,
+      "preferences": [2, 1, 3]
+    },
+    {
+      "id": 3,
+      "name": "School of Science",
+      "location": "Chicago",
+      "capacity": 75,
+      "preferences": [3, 1, 2]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "Alice Smith",
+      "preferences": ["School A", "School B", "School C"]
+    },
+    {
+      "id": 2,
+      "name": "Bob Johnson",
+      "preferences": ["School B", "School C", "School A"]
+    },
+    {
+      "id": 3,
+      "name": "Charlie Brown",
+      "preferences": ["School C", "School A", "School B"]
+    },
+    {
+      "id": 4,
+      "name": "Diana Prince",
+      "preferences": ["School A", "School C", "School B"]
+    }
+  ]
+}
