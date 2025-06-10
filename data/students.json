@@ -5,28 +5,28 @@
       "last_name": "Martin",
       "first_name": "Alice",
       "birthdate": "2008-05-12",
-      "school_choices": ["SCH001", "SCH002"]
+      "school_choices": ["SCHA", "SCHB", "SCHC"]
     },
     {
       "id": "STUB",
       "last_name": "Dupont",
       "first_name": "Lucas",
       "birthdate": "2007-11-03",
-      "school_choices": ["SCH003", "SCH001"]
+      "school_choices": ["SCHC", "SCHA", "SCHB"]
     },
     {
       "id": "STUC",
       "last_name": "Nguyen",
       "first_name": "Emma",
       "birthdate": "2008-09-27",
-      "school_choices": ["SCH002"]
+      "school_choices": ["SCHB", "SCHA", "SCHC"]
     },
     {
       "id": "STUD",
       "last_name": "Francois",
       "first_name": "Yoann",
       "birthdate": "2002/07/26",
-      "school_choices": ["SCH003, SCH002"]
+      "school_choices": ["SCHC", "SCHB", "SCHA"]
     }
   ]
 }

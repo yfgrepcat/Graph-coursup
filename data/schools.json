@@ -4,19 +4,24 @@
       "id": "SCHA",
       "name": "École Jean Jaurès",
       "location": "Paris",
-      "capacity": 1
+      "capacity": 1,
+      "students_choices": ["STUB", "STUC", "STUA", "STUD"]
     },
     {
       "id": "SCHB",
       "name": "École Louise Michel",
       "location": "Lyon",
-      "capacity": 1
+      "capacity": 1,
+      "students_choices": ["STUC", "STUD", "STUB", "STUA"]
+
     },
     {
       "id": "SCHC",
       "name": "École Internationale de Marseille",
       "location": "Marseille",
-      "capacity": 1
+      "capacity": 1,
+      "students_choices": ["STUA", "STUB", "STUC", "STUD"]
+
     }
   ]
 }
