@@ -1,0 +1,9 @@
+[project]
+name = "graph-coursup"
+version = "0.1.0"
+description = "graphCoursup is a project implementing the stable mariage algorithm in Python. Dependecy management via uv."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pyinquirer>=1.0.3",
+]
