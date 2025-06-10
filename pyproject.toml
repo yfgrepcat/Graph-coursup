@@ -6,4 +6,10 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "pyinquirer>=1.0.3",
+    "ruff>=0.11.13",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.11.13",
 ]
