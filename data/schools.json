@@ -5,14 +5,14 @@
       "name": "École Jean Jaurès",
       "location": "Paris",
       "capacity": 1,
-      "students_choices": ["STUB", "STUC", "STUA", "STUD"]
+      "students_choices": ["STUB", "STUC", "STUA", "STUD", "STUE"]
     },
     {
       "id": "SCHB",
       "name": "École Louise Michel",
       "location": "Lyon",
-      "capacity": 1,
-      "students_choices": ["STUC", "STUD", "STUB", "STUA"]
+      "capacity": 2,
+      "students_choices": ["STUC", "STUD", "STUB", "STUE", "STUA"]
 
     },
     {
@@ -20,7 +20,7 @@
       "name": "École Internationale de Marseille",
       "location": "Marseille",
       "capacity": 1,
-      "students_choices": ["STUA", "STUB", "STUC", "STUD"]
+      "students_choices": ["STUA", "STUE", "STUB", "STUC", "STUD"]
 
     }
   ]

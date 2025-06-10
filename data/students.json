@@ -27,6 +27,13 @@
       "first_name": "Yoann",
       "birthdate": "2002/07/26",
       "school_choices": ["SCHC", "SCHB", "SCHA"]
+    },
+    {
+      "id": "STUE",
+      "last_name": "Aloit",
+      "first_name": "Thomas",
+      "birthdate": "2003/01/24",
+      "school_choices": ["SCHC", "SCHB", "SCHA"] 
     }
   ]
 }
