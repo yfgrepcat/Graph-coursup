@@ -11,19 +11,18 @@ class StableMarriage:
         # Placeholder for the serenading wave algorithm implementation
         pass
 
-    def biddingChoice(self, int choice):
+    @staticmethod
+    def biddingChoice(int choice):
         """
         Handle the bidding choice for the stable marriage algorithm.
         :param choice: The choice made by the user.
         """
-        pass
-              
-        
-
+        pass            
 
 def stable_marriage_algorithm(schools, students):
     # Logic to execute the stable marriage algorithm
-    stable_marriage = StableMarriage(schools, students)
+    serenadingProcess = StableMarriage(schools, students)
     # Pyinquirer prompt user
     choice : int = 1 
-    StableMarriage.biddingChoice(int choice)
+    serenadingProcess.biddingChoice(int choice)
+    serenadingProcess.serenadingWave()
