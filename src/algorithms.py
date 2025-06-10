@@ -3,15 +3,27 @@ class StableMarriage:
         self.schools = schools
         self.students = students
 
-    def find_stable_marriage(self):
-        # Implementation of the stable marriage algorithm
+    def serenadingWave(self):
+        """
+        Implement the serenading wave algorithm for stable marriage.
+        This method will handle the logic of matching students to schools.
+        """
+        # Placeholder for the serenading wave algorithm implementation
         pass
 
-    def bidding_choice(self):
-        # Implementation for bidding choice logic
+    def biddingChoice(self, int choice):
+        """
+        Handle the bidding choice for the stable marriage algorithm.
+        :param choice: The choice made by the user.
+        """
         pass
+              
+        
 
 
 def stable_marriage_algorithm(schools, students):
     # Logic to execute the stable marriage algorithm
-    pass
+    stable_marriage = StableMarriage(schools, students)
+    # Pyinquirer prompt user
+    choice : int = 1 
+    StableMarriage.biddingChoice(int choice)
