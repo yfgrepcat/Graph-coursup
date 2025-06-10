@@ -1,15 +1,19 @@
 [project]
 name = "graph-coursup"
 version = "0.1.0"
-description = "graphCoursup is a project implementing the stable mariage algorithm in Python. Dependecy management via uv."
+description = "Add your description here"
 readme = "README.md"
+authors = [
+    { name = "Yoann FRANCOIS", email = "121094049+yfrancois-iut@users.noreply.github.com" }
+]
 requires-python = ">=3.12"
 dependencies = [
-    "pyinquirer>=1.0.3",
-    "ruff>=0.11.13",
+    "inquirerpy>=0.3.4",
 ]
 
-[dependency-groups]
-dev = [
-    "ruff>=0.11.13",
-]
+[project.scripts]
+graph-coursup = "graph_coursup:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
