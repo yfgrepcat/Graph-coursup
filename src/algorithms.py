@@ -44,16 +44,21 @@ class StableMarriage:
                     assigned = school["assigned_elements"]
 
                     if len(assigned) < school["capacity"]:
-                        assigned.append(student_id)
-                        student_info["assigned"] = True
+                        if student_info["capacity"] > 0:
+                            assigned.append(student_id)
+                            print(student_id)
+                            print(student_info["capacity"])
+                            student_info["capacity"] -= 1
+                            if student_info["capacity"] <= 0:
+                                student_info["assigned"] = True
                     else:
                         for current_student in assigned:
-                            if self.is_better_choice(school_id, student_id, assigned, schools):
-                                assigned.remove(current_student)
-                                students[current_student]["assigned"] = False
-                                assigned.append(student_id)
-                                student_info["assigned"] = True
-                                break
+                                if self.is_better_choice(school_id, student_id, assigned, schools):
+                                    assigned.remove(current_student)
+                                    students[current_student]["assigned"] = False
+                                    assigned.append(student_id)
+                                    student_info["assigned"] = True
+                                    break
 
         # Affichage des résultats
         print("\nFinal assignment:")
@@ -81,12 +86,3 @@ class StableMarriage:
             self.serenading = True
         elif choice == 2:
             self.serenading = False         
-
-def stable_marriage_algorithm(schools, students):
-    # Logic to execute the stable marriage algorithm
-    serenadingProcess = StableMarriage(schools, students)
-    # Pyinquirer prompt user
-    
-    choice : int = 1 
-    serenadingProcess.biddingChoice(choice)
-    serenadingProcess.serenadingWave()
