@@ -2,10 +2,9 @@
 The main class for our Graph-coursup project.
 """
 import json
+from collections import deque
 from .algorithms import StableMarriage
-from .cli_handler import prompt_user
-from .data_loader import Schools, Students
-
+from .cli_handler import CLIHandler
 
 class Schools:
     def __init__(self):
@@ -13,7 +12,7 @@ class Schools:
         Initialize the schools based on the json file provided.
         """
         self.schoolsDict = {}
-        self.load_schools("schools.json")
+        self.load_schools("data/schools.json")
 
     def load_schools(self, file_path):
         """
@@ -22,7 +21,17 @@ class Schools:
         """
         try:
             with open(file_path, 'r') as file:
-                self.schoolsDict = json.load(file)
+                schools_data = json.load(file)["schools"]
+                self.schoolsDict = {
+                    school["id"]: {
+                        "capacity": school["capacity"],
+                        "preferences": deque(school["students_preferences"]),
+                        "assigned_elements": [],
+                        "assigned": False
+                    }
+                    for school in schools_data
+                }
+
         except FileNotFoundError:
             print(f"Error: The file {file_path} was not found.")
         except json.JSONDecodeError:
@@ -34,7 +43,7 @@ class Students:
         Initialize the students based on the json file provided.
         """
         self.studentsDict = {}
-        self.load_students("students.json")
+        self.load_students("data/students.json")
     
     def load_students(self, file_path):
         """
@@ -43,7 +52,17 @@ class Students:
         """
         try:
             with open(file_path, 'r') as file:
-                self.studentsDict = json.load(file)
+                students_data = json.load(file)["students"]
+            self.studentsDict = {
+                student["id"]: {
+                    "capacity": 1,
+                    "preferences": deque(student["school_preferences"]),
+                    "assigned_elements": [],
+                    "assigned": False
+                }
+                for student in students_data
+            }
+
         except FileNotFoundError:
             print(f"Error: The file {file_path} was not found.")
         except json.JSONDecodeError:
@@ -56,9 +75,15 @@ def main():
     """
     schools = Schools()
     students = Students()
-    stableMarriage = StableMarriage(schools, students)
-    biddingPrompt: int = prompt_user("Choose who's the one serenading:\n1. Schools\n2. Students", [1, 2])
+    biddingPrompt: int = CLIHandler.prompt_user("Choose who's the one serenading:\n1. Schools\n2. Students", [1, 2])
+    stableMarriage = StableMarriage(schools=schools, students=students)
     stableMarriage.biddingChoice(biddingPrompt)
+
+    print(students.studentsDict)
+    print(schools.schoolsDict)
+
+    stableMarriage.serenadingWave(students=students.studentsDict, schools=schools.schoolsDict)
+    print("OK")
     pass
 
 

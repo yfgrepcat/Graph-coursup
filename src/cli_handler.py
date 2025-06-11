@@ -1,13 +1,9 @@
-from inquirerpy import inquirer
+from InquirerPy import inquirer
 
 class CLIHandler:
-    def __init__(self):
-        """
-        Initialize the CLIHandler for managing user interactions.
-        """
-        pass
 
-    def prompt_user(self, message : str, choices : list) -> str:
+    @staticmethod
+    def prompt_user(message : str, choices : list) -> str:
         """
         Prompt the user with a message and a list of choices.
         :param message: The message to display to the user.

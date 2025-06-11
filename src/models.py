@@ -1,8 +1,9 @@
 class School:
-    def __init__(self, name, capacity):
+    def __init__(self, name, capacity, preferences):
         self.name = name
         self.capacity = capacity
         self.students = []
+        self.preferences = preferences
 
     def __repr__(self):
         return f"School(name={self.name}, capacity={self.capacity}, students={self.students})"
