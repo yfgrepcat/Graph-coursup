@@ -1,3 +1,5 @@
+from collections import deque
+
 class StableMarriage:
     def __init__(self, schools, students):
         self.schools = schools
@@ -9,50 +11,113 @@ class StableMarriage:
         """
         Implement the Gale-Shapley algorithm for stable marriage.
         This method handles the logic of matching students to schools.
+
+        proposers = The ones who serenade
+        receivers = The ones who are serenaded
+
+        :param students: Dictionary of students with their preferences.
+        :param schools: Dictionary of schools with their preferences.
         """
+        
         # Swap roles if students are serenading schools
-        if not self.serenading:
-            students, schools = schools, students
+        if self.serenading:
+            proposers = schools
+            receivers = students
+        else:
+            proposers = students
+            receivers = schools
 
         # Initialize all schools and students as unassigned
-        for school in schools.values():
-            school["assigned_elements"] = []
-            school["assigned"] = False
+        for entity in list(proposers.values()) + list(receivers.values()):
+            entity["assigned_elements"] = []
 
-        for student in students.values():
-            student["assigned"] = False
+        # Deque -> a queue that allows fast appends and pops from both ends
+        # Appropriate since everything is sequential
+        # And rejection handled efficiently via re-queuing
+        free_proposers = deque(proposers.keys())
 
-        # Perform the Gale-Shapley algorithm
-        while any(
-            not student["assigned"] and student["preferences"]
-            for student in students.values()
-        ):
-            for student_id, student_info in students.items():
-                if not student_info["assigned"] and student_info["preferences"]:
-                    # Student proposes to the next school in their preference list
-                    school_id = student_info["preferences"].popleft()
-                    school = schools[school_id]
-                    assigned = school["assigned_elements"]
+        # Precompute preferences for 
+        receiver_ranks = {}
 
-                    if len(assigned) < school["capacity"]:
-                        # School has capacity, accept the student
-                        assigned.append(student_id)
-                        student_info["assigned"] = True
-                    else:
-                        # School is full, check if the new student is preferred
-                        for current_student in assigned:
-                            if self.is_better_choice(school_id, student_id, current_student, schools):
-                                # Replace the less preferred student
-                                assigned.remove(current_student)
-                                students[current_student]["assigned"] = False
-                                assigned.append(student_id)
-                                student_info["assigned"] = True
-                                break
+        # Critical optimization of the script :
+        # Precompute the ranks of each proposer in each receiver's preference list
+        # We went from O(n³) to O(n²) complexity
+        # -> for loop is no longer required to check preferences every time
+        for receiver_id, receiver_info in receivers.items():
+            rank_map = {} # Temporary map to store ranks of proposers
+            for rank_idx, proposer_id in enumerate(receiver_info["preferences"]):
+                rank_map[proposer_id] = rank_idx
+            receiver_ranks[receiver_id] = rank_map
 
-        # Display the final assignment
+        # Perform the stable marriage algorithm
+        while free_proposers:
+            proposer_id = free_proposers.popleft()
+            proposer = proposers[proposer_id]
+            
+            # Skip if no preferences left
+            if not proposer["preferences"]:
+                continue
+                
+            # Get next preference
+            receiver_id = proposer["preferences"].popleft()
+            receiver = receivers[receiver_id]
+            
+            # Case 1: Receiver has capacity
+            if len(receiver["assigned_elements"]) < receiver["capacity"]:
+                receiver["assigned_elements"].append(proposer_id)
+                # Track assignment both ways
+                proposer["assigned_elements"].append(receiver_id)
+                
+                # If proposer still has capacity, re-enqueue them
+                if len(proposer["assigned_elements"]) < proposer["capacity"]:
+                    free_proposers.append(proposer_id)
+            
+            # Case 2: Receiver is full
+            else:
+                # Find worst current match
+                # Initialize worst rank to ~-infinity
+                worst_rank = float('-inf')
+                worst_proposer = None
+                rank_map = receiver_ranks[receiver_id]
+                
+                for curr_id in receiver["assigned_elements"]:
+                    curr_rank = rank_map.get(curr_id, float('inf'))
+                    if curr_rank > worst_rank:
+                        worst_rank = curr_rank
+                        worst_proposer = curr_id
+                
+                # Compare new proposer
+                new_rank = rank_map.get(proposer_id, float('inf'))
+                if new_rank < worst_rank:
+                    # Replace worst match
+                    receiver["assigned_elements"].remove(worst_proposer)
+                    # Remove bidirectional link
+                    worst_proposer_data = proposers[worst_proposer]
+                    worst_proposer_data["assigned_elements"].remove(receiver_id)
+                    
+                    # Add new match
+                    receiver["assigned_elements"].append(proposer_id)
+                    proposer["assigned_elements"].append(receiver_id)
+                    
+                    # Re-enqueue rejected proposer
+                    free_proposers.append(worst_proposer)
+                    # Re-enqueue new proposer if they still have capacity
+                    if len(proposer["assigned_elements"]) < proposer["capacity"]:
+                        free_proposers.append(proposer_id)
+                else:
+                    # Proposer is rejected
+                    # Re-enqueue proposer to try next preference
+                    free_proposers.append(proposer_id)
+
         print("\nFinal assignment:")
-        for school_id, school in schools.items():
-            print(f"{school_id} -> {school['assigned_elements']}")
+        if self.serenading:
+            # Schools serenaded: show school assignments
+            for school_id, school in schools.items():
+                print(f"{school_id} -> {school['assigned_elements']}")
+        else:
+            # Students serenaded: show student assignments
+            for student_id, student in students.items():
+                print(f"{student_id} -> {student['assigned_elements']}")
 
     def is_better_choice(self, school_id, new_student_id, current_student_id, schools):
         """
