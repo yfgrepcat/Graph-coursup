@@ -66,5 +66,28 @@ class TestStableMarriage(unittest.TestCase):
             self.assertLessEqual(len(school["assigned_elements"]), school["capacity"], f"{school_id} exceeds capacity.")
 
 
+    def test_insufficient_school_capacity(self):
+        """
+        Test a scenario where the capacity of schools is too small for the number of students.
+        Some students should remain unmatched.
+        """
+        # Reduce school capacities to make them insufficient
+        self.schools["School A"]["capacity"] = 1
+        self.schools["School B"]["capacity"] = 1
+
+        algorithm = StableMarriage(self.schools, self.students)
+        algorithm.serenadingWave(self.students, self.schools)
+
+        # Check that some students are left without schools
+        unmatched_students = [
+            student_id for student_id, student in self.students.items()
+            if not student["assigned_elements"]
+        ]
+        self.assertGreater(len(unmatched_students), 0, "All students are matched despite insufficient school capacity.")
+
+        # Check that no school exceeds its capacity
+        for school_id, school in self.schools.items():
+            self.assertLessEqual(len(school["assigned_elements"]), school["capacity"], f"{school_id} exceeds capacity.")
+
 if __name__ == '__main__':
     unittest.main()

@@ -12,7 +12,7 @@ class Schools:
         Initialize the schools based on the json file provided.
         """
         self.schoolsDict = {}
-        self.load_schools("data/example4/schools.json")
+        self.load_schools("data/example3/schools.json")
 
     def load_schools(self, file_path):
         """
@@ -43,7 +43,7 @@ class Students:
         Initialize the students based on the json file provided.
         """
         self.studentsDict = {}
-        self.load_students("data/example4/students.json")
+        self.load_students("data/example3/students.json")
     
     def load_students(self, file_path):
         """
