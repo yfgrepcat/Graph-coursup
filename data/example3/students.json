@@ -5,21 +5,21 @@
       "last_name": "Roux",
       "first_name": "Clara",
       "birthdate": "2009-04-11",
-      "school_preferences": ["SCHB", "SCHC", "SCHA"]
+      "school_preferences": ["SCHB", "SCHC", "SCHA", "SCHD", "SCHE"]
     },
     {
       "id": "S2",
       "last_name": "Fabre",
       "first_name": "Julien",
       "birthdate": "2008-08-07",
-      "school_preferences": ["SCHE", "SCHB", "SCHD"]
+      "school_preferences": ["SCHE", "SCHB", "SCHD", "SCHA", "SCHC"]
     },
     {
       "id": "S3",
       "last_name": "Leclerc",
       "first_name": "Manon",
       "birthdate": "2010-01-02",
-      "school_preferences": ["SCHC", "SCHD", "SCHA"]
+      "school_preferences": ["SCHC", "SCHD", "SCHA", "SCHB", "SCHE"]
     }
   ]
 }
