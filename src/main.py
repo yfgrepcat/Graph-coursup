@@ -75,8 +75,14 @@ def main():
     """
     schools = Schools()
     students = Students()
+<<<<<<< HEAD
     biddingPrompt: int = CLIHandler.prompt_user("Choose who's the one serenading:\n1. Schools\n2. Students", [1, 2])
     stableMarriage = StableMarriage(schools=schools, students=students)
+=======
+    cli_handler = CLIHandler()
+    stableMarriage = StableMarriage(schools, students)
+    biddingPrompt: int = cli_handler.prompt_user("Choose who's the one serenading:\n1. Schools\n2. Students", [1, 2])
+>>>>>>> 742a5d0 (stash commit)
     stableMarriage.biddingChoice(biddingPrompt)
 
     print(students.studentsDict)

@@ -10,6 +10,7 @@ class CLIHandler:
         :param choices: A list of choices for the user to select from.
         :return: The user's selected choice.
         """
+
         answer = inquirer.select(
             message=message,
             choices=choices

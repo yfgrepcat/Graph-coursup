@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [project.scripts]
-graph-coursup = "graph_coursup:main"
+graph-coursup = "src.main:main"
 
 [build-system]
 requires = ["hatchling"]

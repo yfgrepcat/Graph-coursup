@@ -1,5 +1,5 @@
 import unittest
-from src.models import School, Student
+from .models import School, Student
 
 class TestModels(unittest.TestCase):
     pass

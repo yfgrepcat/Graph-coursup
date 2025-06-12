@@ -1,6 +1,6 @@
 import unittest
-from src.algorithms import StableMarriage
-from src.models import School, Student
+from .algorithms import StableMarriage
+from .models import School, Student
 
 class TestStableMarriage(unittest.TestCase):
     def setUp(self):
