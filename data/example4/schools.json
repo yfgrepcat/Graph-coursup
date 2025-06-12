@@ -1,0 +1,39 @@
+{
+  "schools": [
+    {
+      "id": "SCH1",
+      "name": "Institut Lumière",
+      "location": "Lyon",
+      "capacity": 2,
+      "students_preferences": ["STU1", "STU5", "STU4", "STU3", "STU2", "STU7", "STU6"]
+    },
+    {
+      "id": "SCH2",
+      "name": "Lycée Pasteur",
+      "location": "Rouen",
+      "capacity": 1,
+      "students_preferences": ["STU3", "STU6", "STU1", "STU5", "STU2"]
+    },
+    {
+      "id": "SCH3",
+      "name": "École Albert Camus",
+      "location": "Orléans",
+      "capacity": 1,
+      "students_preferences": ["STU6", "STU2", "STU1", "STU3"]
+    },
+    {
+      "id": "SCH4",
+      "name": "Lycée Descartes",
+      "location": "Dijon",
+      "capacity": 2,
+      "students_preferences": ["STU2", "STU4", "STU7", "STU5"]
+    },
+    {
+      "id": "SCH5",
+      "name": "École Montesquieu",
+      "location": "Metz",
+      "capacity": 1,
+      "students_preferences": ["STU7", "STU3", "STU4"]
+    }
+  ]
+}

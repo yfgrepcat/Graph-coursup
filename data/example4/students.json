@@ -1,0 +1,53 @@
+{
+  "students": [
+    {
+      "id": "STU1",
+      "last_name": "Benoît",
+      "first_name": "Lina",
+      "birthdate": "2008-03-14",
+      "school_preferences": ["SCH1", "SCH2", "SCH3"]
+    },
+    {
+      "id": "STU2",
+      "last_name": "Charles",
+      "first_name": "Antoine",
+      "birthdate": "2009-07-10",
+      "school_preferences": ["SCH4", "SCH1", "SCH3"]
+    },
+    {
+      "id": "STU3",
+      "last_name": "Delmas",
+      "first_name": "Nina",
+      "birthdate": "2007-12-20",
+      "school_preferences": ["SCH2", "SCH5", "SCH3"]
+    },
+    {
+      "id": "STU4",
+      "last_name": "Emery",
+      "first_name": "Tom",
+      "birthdate": "2006-05-08",
+      "school_preferences": ["SCH4", "SCH1", "SCH5"]
+    },
+    {
+      "id": "STU5",
+      "last_name": "Fontaine",
+      "first_name": "Eva",
+      "birthdate": "2008-01-01",
+      "school_preferences": ["SCH1", "SCH4"]
+    },
+    {
+      "id": "STU6",
+      "last_name": "Granger",
+      "first_name": "Hugo",
+      "birthdate": "2007-09-15",
+      "school_preferences": ["SCH3", "SCH2", "SCH1"]
+    },
+    {
+      "id": "STU7",
+      "last_name": "Hervé",
+      "first_name": "Zoé",
+      "birthdate": "2009-02-17",
+      "school_preferences": ["SCH5", "SCH4", "SCH1"]
+    }
+  ]
+}

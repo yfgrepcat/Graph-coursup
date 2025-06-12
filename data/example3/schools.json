@@ -1,0 +1,39 @@
+{
+  "schools": [
+    {
+      "id": "SCHA",
+      "name": "École Alpha",
+      "location": "Bordeaux",
+      "capacity": 1,
+      "students_preferences": ["S1", "S2", "S3"]
+    },
+    {
+      "id": "SCHB",
+      "name": "École Beta",
+      "location": "Toulouse",
+      "capacity": 1,
+      "students_preferences": ["S2", "S3", "S1"]
+    },
+    {
+      "id": "SCHC",
+      "name": "École Gamma",
+      "location": "Rennes",
+      "capacity": 1,
+      "students_preferences": ["S3", "S2", "S1"]
+    },
+    {
+      "id": "SCHD",
+      "name": "École Delta",
+      "location": "Grenoble",
+      "capacity": 1,
+      "students_preferences": ["S1", "S3", "S2"]
+    },
+    {
+      "id": "SCHE",
+      "name": "École Epsilon",
+      "location": "Strasbourg",
+      "capacity": 1,
+      "students_preferences": ["S2", "S1", "S3"]
+    }
+  ]
+}

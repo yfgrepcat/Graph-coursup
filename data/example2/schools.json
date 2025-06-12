@@ -1,0 +1,25 @@
+{
+  "schools": [
+    {
+      "id": "SCH1",
+      "name": "Lycée Voltaire",
+      "location": "Paris",
+      "capacity": 1,
+      "students_preferences": ["STU2", "STU1", "STU4", "STU3"]
+    },
+    {
+      "id": "SCH2",
+      "name": "Lycée Victor Hugo",
+      "location": "Lille",
+      "capacity": 2,
+      "students_preferences": ["STU1", "STU3", "STU2", "STU4"]
+    },
+    {
+      "id": "SCH3",
+      "name": "Lycée Saint Exupéry",
+      "location": "Nice",
+      "capacity": 1,
+      "students_preferences": ["STU4", "STU2", "STU3", "STU1"]
+    }
+  ]
+}

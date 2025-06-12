@@ -1,0 +1,25 @@
+{
+  "students": [
+    {
+      "id": "S1",
+      "last_name": "Roux",
+      "first_name": "Clara",
+      "birthdate": "2009-04-11",
+      "school_preferences": ["SCHB", "SCHC", "SCHA"]
+    },
+    {
+      "id": "S2",
+      "last_name": "Fabre",
+      "first_name": "Julien",
+      "birthdate": "2008-08-07",
+      "school_preferences": ["SCHE", "SCHB", "SCHD"]
+    },
+    {
+      "id": "S3",
+      "last_name": "Leclerc",
+      "first_name": "Manon",
+      "birthdate": "2010-01-02",
+      "school_preferences": ["SCHC", "SCHD", "SCHA"]
+    }
+  ]
+}

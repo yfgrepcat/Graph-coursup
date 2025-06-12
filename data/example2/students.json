@@ -1,0 +1,32 @@
+{
+  "students": [
+    {
+      "id": "STU1",
+      "last_name": "Bernard",
+      "first_name": "Julie",
+      "birthdate": "2007-03-15",
+      "school_preferences": ["SCH2", "SCH1", "SCH3"]
+    },
+    {
+      "id": "STU2",
+      "last_name": "Petit",
+      "first_name": "Arthur",
+      "birthdate": "2008-06-22",
+      "school_preferences": ["SCH1", "SCH2", "SCH3"]
+    },
+    {
+      "id": "STU3",
+      "last_name": "Lemoine",
+      "first_name": "Sarah",
+      "birthdate": "2006-09-04",
+      "school_preferences": ["SCH2", "SCH3", "SCH1"]
+    },
+    {
+      "id": "STU4",
+      "last_name": "Garnier",
+      "first_name": "Leo",
+      "birthdate": "2005-12-01",
+      "school_preferences": ["SCH3", "SCH2", "SCH1"]
+    }
+  ]
+}
