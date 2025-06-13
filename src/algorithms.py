@@ -132,13 +132,13 @@ class StableMarriage:
 
             self.waveNber += 1
             next_round = deque()
-            n = len(free_proposers)
 
             print(f"\n*** Wave {self.waveNber} attempts ***")
 
             proposals_made = 0  # Track if at least one proposal is made in this wave
 
-            for _ in range(n):
+            # Make sure that one round each free proposer gets to serenade
+            for _ in range(len(free_proposers)):
                 proposer_id = free_proposers.popleft()
                 proposer = proposers[proposer_id]
 
@@ -146,20 +146,19 @@ class StableMarriage:
                 if not proposer["preferences"]:
                     print(f"Proposer {proposer_id} has no preferences left, skipping.")
                     continue
-                # Get next preference
-                receiver_id = proposer["preferences"][0]
-                print(f"Proposer {proposer_id} attempts to propose to Receiver {receiver_id}")
-                proposals_made += 1
 
-                # Pop the preference for real proposal
+                # Pop the preference for proposal
                 receiver_id = proposer["preferences"].popleft()
+                print(f"Proposer {proposer_id} attempts to propose to Receiver {receiver_id}")
                 receiver = receivers[receiver_id]
+                proposals_made += 1
 
                 # Case 1: Receiver has capacity
                 if len(receiver["assigned_elements"]) < receiver["capacity"]:
                     receiver["assigned_elements"].append(proposer_id)
                     proposer["assigned_elements"].append(receiver_id)
 
+                    # if proposer has still room/capacity for another one he is still free for the next round
                     if len(proposer["assigned_elements"]) < proposer["capacity"]:
                         next_round.append(proposer_id)
 
@@ -169,6 +168,7 @@ class StableMarriage:
                     worst_proposer = None
                     rank_map = receiver_ranks[receiver_id]
 
+                    # Check current assigned elements to find the worst match
                     for curr_id in receiver["assigned_elements"]:
                         curr_rank = rank_map.get(curr_id, float('inf'))
                         if curr_rank > worst_rank:
@@ -177,6 +177,7 @@ class StableMarriage:
 
                     new_rank = rank_map.get(proposer_id, float('inf'))
 
+                    # Case 2: Receiver is full, but proposer is better than worst match
                     if new_rank < worst_rank:
                         # Replace worst match
                         receiver["assigned_elements"].remove(worst_proposer)
@@ -218,23 +219,6 @@ class StableMarriage:
         else:
             for student_id, student in students.items():
                 print(f"{student_id} -> {student['assigned_elements']}")
-
-    def is_better_choice(self, school_id, new_student_id, current_student_id, schools):
-        """
-        Check if the new student is preferred over the current student.
-        :param school_id: ID of the school.
-        :param new_student_id: ID of the new student.
-        :param current_student_id: ID of the current student.
-        :param schools: Dictionary of schools.
-        :return: True if the new student is preferred, False otherwise.
-        """
-        preferences = schools[school_id]["preferences"]
-        for student_id in preferences:
-            if student_id == new_student_id:
-                return True
-            if student_id == current_student_id:
-                return False
-        return False
 
     def biddingChoice(self, choice: int):
         """
