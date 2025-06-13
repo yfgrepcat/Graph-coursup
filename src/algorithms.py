@@ -112,9 +112,7 @@ class StableMarriage:
         # And rejection handled efficiently via re-queuing
         free_proposers = deque(proposers.keys())
 
-        # Precompute preferences for 
         receiver_ranks = {}
-
         # Critical optimization of the script :
         # Precompute the ranks of each proposer in each receiver's preference list
         # We went from O(n³) to O(n²) complexity
@@ -125,73 +123,99 @@ class StableMarriage:
                 rank_map[proposer_id] = rank_idx
             receiver_ranks[receiver_id] = rank_map
 
+        self.waveNber = 0
         # Perform the stable marriage algorithm
         while free_proposers:
-            proposer_id = free_proposers.popleft()
-            proposer = proposers[proposer_id]
-            
-            # Skip if no preferences left
-            if not proposer["preferences"]:
-                continue
-                
-            # Get next preference
-            receiver_id = proposer["preferences"].popleft()
-            receiver = receivers[receiver_id]
-            
-            # Case 1: Receiver has capacity
-            if len(receiver["assigned_elements"]) < receiver["capacity"]:
-                receiver["assigned_elements"].append(proposer_id)
-                # Track assignment both ways
-                proposer["assigned_elements"].append(receiver_id)
-                
-                # If proposer still has capacity, re-enqueue them
-                if len(proposer["assigned_elements"]) < proposer["capacity"]:
-                    free_proposers.append(proposer_id)
-            
-            # Case 2: Receiver is full
-            else:
-                # Find worst current match
-                # Initialize worst rank to ~-infinity
-                worst_rank = float('-inf')
-                worst_proposer = None
-                rank_map = receiver_ranks[receiver_id]
-                
-                for curr_id in receiver["assigned_elements"]:
-                    curr_rank = rank_map.get(curr_id, float('inf'))
-                    if curr_rank > worst_rank:
-                        worst_rank = curr_rank
-                        worst_proposer = curr_id
-                
-                # Compare new proposer
-                new_rank = rank_map.get(proposer_id, float('inf'))
-                if new_rank < worst_rank:
-                    # Replace worst match
-                    receiver["assigned_elements"].remove(worst_proposer)
-                    # Remove bidirectional link
-                    worst_proposer_data = proposers[worst_proposer]
-                    worst_proposer_data["assigned_elements"].remove(receiver_id)
-                    
-                    # Add new match
+            # Check if at least one proposer has preferences left
+            if not any(proposers[pid]["preferences"] for pid in free_proposers):
+                break  # No proposals possible anymore
+
+            self.waveNber += 1
+            next_round = deque()
+            n = len(free_proposers)
+
+            print(f"\n*** Wave {self.waveNber} attempts ***")
+
+            proposals_made = 0  # Track if at least one proposal is made in this wave
+
+            for _ in range(n):
+                proposer_id = free_proposers.popleft()
+                proposer = proposers[proposer_id]
+
+                # Skip if no preferences left
+                if not proposer["preferences"]:
+                    print(f"Proposer {proposer_id} has no preferences left, skipping.")
+                    continue
+                # Get next preference
+                receiver_id = proposer["preferences"][0]
+                print(f"Proposer {proposer_id} attempts to propose to Receiver {receiver_id}")
+                proposals_made += 1
+
+                # Pop the preference for real proposal
+                receiver_id = proposer["preferences"].popleft()
+                receiver = receivers[receiver_id]
+
+                # Case 1: Receiver has capacity
+                if len(receiver["assigned_elements"]) < receiver["capacity"]:
                     receiver["assigned_elements"].append(proposer_id)
                     proposer["assigned_elements"].append(receiver_id)
-                    
-                    # Re-enqueue rejected proposer
-                    free_proposers.append(worst_proposer)
-                    # Re-enqueue new proposer if they still have capacity
-                    if len(proposer["assigned_elements"]) < proposer["capacity"]:
-                        free_proposers.append(proposer_id)
-                else:
-                    # Proposer is rejected
-                    # Re-enqueue proposer to try next preference
-                    free_proposers.append(proposer_id)
 
+                    if len(proposer["assigned_elements"]) < proposer["capacity"]:
+                        next_round.append(proposer_id)
+
+                else:
+                    # Find worst current match based on precomputed ranks
+                    worst_rank = float('-inf')
+                    worst_proposer = None
+                    rank_map = receiver_ranks[receiver_id]
+
+                    for curr_id in receiver["assigned_elements"]:
+                        curr_rank = rank_map.get(curr_id, float('inf'))
+                        if curr_rank > worst_rank:
+                            worst_rank = curr_rank
+                            worst_proposer = curr_id
+
+                    new_rank = rank_map.get(proposer_id, float('inf'))
+
+                    if new_rank < worst_rank:
+                        # Replace worst match
+                        receiver["assigned_elements"].remove(worst_proposer)
+                        worst_proposer_data = proposers[worst_proposer]
+                        worst_proposer_data["assigned_elements"].remove(receiver_id)
+
+                        receiver["assigned_elements"].append(proposer_id)
+                        proposer["assigned_elements"].append(receiver_id)
+
+                        # Re-enqueue rejected proposer and new proposer if capacity left
+                        next_round.append(worst_proposer)
+                        if len(proposer["assigned_elements"]) < proposer["capacity"]:
+                            next_round.append(proposer_id)
+                    else:
+                        # Proposal rejected; re-enqueue proposer
+                        next_round.append(proposer_id)
+
+            # If no proposer made a proposal this wave, don't count this wave
+            if proposals_made == 0:
+                self.waveNber -= 1
+
+            free_proposers = next_round
+
+            # Print status at end of wave
+            print(f"\n--- End of Wave {self.waveNber} ---")
+            print("Proposers' assignments:")
+            for pid, pdata in proposers.items():
+                print(f"  {pid}: assigned -> {pdata['assigned_elements']}")
+            print("Receivers' assignments:")
+            for rid, rdata in receivers.items():
+                print(f"  {rid}: assigned -> {rdata['assigned_elements']}")
+            print("----------------------------")
+
+        # Final summary
         print("\nFinal assignment:")
         if self.serenading:
-            # Schools serenaded: show school assignments
             for school_id, school in schools.items():
                 print(f"{school_id} -> {school['assigned_elements']}")
         else:
-            # Students serenaded: show student assignments
             for student_id, student in students.items():
                 print(f"{student_id} -> {student['assigned_elements']}")
 
