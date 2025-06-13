@@ -127,68 +127,63 @@ class StableMarriage:
 
         # Perform the stable marriage algorithm
         while free_proposers:
-            self.waveNber += 1
-            current_wave_size = len(free_proposers)
-            print(f"\n--- Wave {self.waveNber} ---")
-
-            for _ in range(current_wave_size):
-                proposer_id = free_proposers.popleft()
-                proposer = proposers[proposer_id]
+            proposer_id = free_proposers.popleft()
+            proposer = proposers[proposer_id]
+            
+            # Skip if no preferences left
+            if not proposer["preferences"]:
+                continue
                 
-                # Skip if no preferences left
-                if not proposer["preferences"]:
-                    continue
+            # Get next preference
+            receiver_id = proposer["preferences"].popleft()
+            receiver = receivers[receiver_id]
+            
+            # Case 1: Receiver has capacity
+            if len(receiver["assigned_elements"]) < receiver["capacity"]:
+                receiver["assigned_elements"].append(proposer_id)
+                # Track assignment both ways
+                proposer["assigned_elements"].append(receiver_id)
+                
+                # If proposer still has capacity, re-enqueue them
+                if len(proposer["assigned_elements"]) < proposer["capacity"]:
+                    free_proposers.append(proposer_id)
+            
+            # Case 2: Receiver is full
+            else:
+                # Find worst current match
+                # Initialize worst rank to ~-infinity
+                worst_rank = float('-inf')
+                worst_proposer = None
+                rank_map = receiver_ranks[receiver_id]
+                
+                for curr_id in receiver["assigned_elements"]:
+                    curr_rank = rank_map.get(curr_id, float('inf'))
+                    if curr_rank > worst_rank:
+                        worst_rank = curr_rank
+                        worst_proposer = curr_id
+                
+                # Compare new proposer
+                new_rank = rank_map.get(proposer_id, float('inf'))
+                if new_rank < worst_rank:
+                    # Replace worst match
+                    receiver["assigned_elements"].remove(worst_proposer)
+                    # Remove bidirectional link
+                    worst_proposer_data = proposers[worst_proposer]
+                    worst_proposer_data["assigned_elements"].remove(receiver_id)
                     
-                # Get next preference
-                receiver_id = proposer["preferences"].popleft()
-                receiver = receivers[receiver_id]
-                
-                # Case 1: Receiver has capacity
-                if len(receiver["assigned_elements"]) < receiver["capacity"]:
+                    # Add new match
                     receiver["assigned_elements"].append(proposer_id)
-                    # Track assignment both ways
                     proposer["assigned_elements"].append(receiver_id)
                     
-                    # If proposer still has capacity, re-enqueue them
+                    # Re-enqueue rejected proposer
+                    free_proposers.append(worst_proposer)
+                    # Re-enqueue new proposer if they still have capacity
                     if len(proposer["assigned_elements"]) < proposer["capacity"]:
                         free_proposers.append(proposer_id)
-                
-                # Case 2: Receiver is full
                 else:
-                    # Find worst current match
-                    # Initialize worst rank to ~-infinity
-                    worst_rank = float('-inf')
-                    worst_proposer = None
-                    rank_map = receiver_ranks[receiver_id]
-                    
-                    for curr_id in receiver["assigned_elements"]:
-                        curr_rank = rank_map.get(curr_id, float('inf'))
-                        if curr_rank > worst_rank:
-                            worst_rank = curr_rank
-                            worst_proposer = curr_id
-                    
-                    # Compare new proposer
-                    new_rank = rank_map.get(proposer_id, float('inf'))
-                    if new_rank < worst_rank:
-                        # Replace worst match
-                        receiver["assigned_elements"].remove(worst_proposer)
-                        # Remove bidirectional link
-                        worst_proposer_data = proposers[worst_proposer]
-                        worst_proposer_data["assigned_elements"].remove(receiver_id)
-                        
-                        # Add new match
-                        receiver["assigned_elements"].append(proposer_id)
-                        proposer["assigned_elements"].append(receiver_id)
-                        
-                        # Re-enqueue rejected proposer
-                        free_proposers.append(worst_proposer)
-                        # Re-enqueue new proposer if they still have capacity
-                        if len(proposer["assigned_elements"]) < proposer["capacity"]:
-                            free_proposers.append(proposer_id)
-                    else:
-                        # Proposer is rejected
-                        # Re-enqueue proposer to try next preference
-                        free_proposers.append(proposer_id)
+                    # Proposer is rejected
+                    # Re-enqueue proposer to try next preference
+                    free_proposers.append(proposer_id)
 
         print("\nFinal assignment:")
         if self.serenading:
@@ -199,7 +194,6 @@ class StableMarriage:
             # Students serenaded: show student assignments
             for student_id, student in students.items():
                 print(f"{student_id} -> {student['assigned_elements']}")
-        print(f"\nTotal waves required: {self.waveNber}")
 
     def is_better_choice(self, school_id, new_student_id, current_student_id, schools):
         """
