@@ -12,7 +12,7 @@ class Schools:
         Initialize the schools based on the json file provided.
         """
         self.schoolsDict = {}
-        self.load_schools("data/example3/schools.json")
+        self.load_schools("data/example4/schools.json")
 
     def load_schools(self, file_path):
         """
@@ -43,7 +43,7 @@ class Students:
         Initialize the students based on the json file provided.
         """
         self.studentsDict = {}
-        self.load_students("data/example3/students.json")
+        self.load_students("data/example4/students.json")
     
     def load_students(self, file_path):
         """
@@ -78,13 +78,9 @@ def main():
     biddingPrompt: int = CLIHandler.prompt_user("Choose who's the one serenading:\n1. Schools\n2. Students", [1, 2])
     stableMarriage = StableMarriage(schools=schools, students=students)
     stableMarriage.biddingChoice(biddingPrompt)
-
     print(students.studentsDict)
     print(schools.schoolsDict)
-
     stableMarriage.serenadingWave(students=students.studentsDict, schools=schools.schoolsDict)
-    print("OK")
-    pass
 
 
 if __name__ == "__main__":
